@@ -1,3 +1,4 @@
+import { decreaseBookAmountInShoppingCart, deleteBookFromShoppingCart, increaseBookAmountInShoppingCart } from '../store/shoppingCartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { BreakLine } from '../components/global/BreakLine';
@@ -6,7 +7,8 @@ import { PrimaryButton } from '../components/global/PrimaryButton';
 import React from 'react';
 import { RootState } from '../store/store';
 import { ShoppingCartItem } from '../components/shopping cart/ShoppingCartItem';
-import { deleteBookFromShoppingCart } from '../store/shoppingCartSlice';
+import { getCalculatedItemsAmount } from '../utils/getCalculatedItemsAmount';
+import { getCalculatedSumPrice } from '../utils/getCalculatedSumPrice';
 
 export const ShoppingCart = () => {
 
@@ -16,32 +18,44 @@ export const ShoppingCart = () => {
     const renderShoppingCartItems = (): JSX.Element[] | JSX.Element => {
         if (shoppingCartItems) {
             return shoppingCartItems.map(item => {return (
-                <ShoppingCartItem key={item.id}
-                    author={item.author}
-                    cover_url={item.cover_url} title={item.title} price={item.price} currency={item.currency} onDeleteBookFromShoppingCart={()=> {return dispatch(deleteBookFromShoppingCart(item));}}/>
+                <ShoppingCartItem key={item.book.id}
+                    author={item.book.author}
+                    cover_url={item.book.cover_url}
+                    title={item.book.title}
+                    price={item.book.price}
+                    currency={item.book.currency}
+                    onDeleteBookFromShoppingCart={() => { return dispatch(deleteBookFromShoppingCart(item.book)); }}
+                    amount={item.amount}
+                    onDecreaseAmount={() => { dispatch(decreaseBookAmountInShoppingCart(item.book));} }
+                    onIncreaseAmount={() => { dispatch(increaseBookAmountInShoppingCart(item.book));} }
+                />
             );});
         }
         return <></>;
     };
 
-
     return (
-        <div className='w-full h-full'>
-            <div className='container py-20 mx-auto flex-col'>
+        <div className='w-full h-screen p-24'>
+            <div className='mx-auto h-full flex-col bg-zinc-100 p-10 shadow-xl rounded-3xl'>
                 <div className='w-full flex justify-between items-center'>
                     <div className='flex items-center'>
-                        <h1 className='font-bold text-2xl mr-8'>Koszyk</h1>
-                        <p className='font-medium text-sm'>{shoppingCartItems.length} przedmiotów</p>
+                        <h1 className='font-semibold text-4xl mr-8'>Koszyk</h1>
+                        <p className='font-medium text-sm mt-1'>{getCalculatedItemsAmount(shoppingCartItems)} art.</p>
                     </div>
-                    <div>Suma: 1000 PLN</div>
+                    <div className='font-semibold'>Suma: {getCalculatedSumPrice(shoppingCartItems)} PLN</div>
                 </div>
                 <BreakLine className='mt-10' />
-                <div className='w-full flex flex-col h-[70vh] py-5 overflow-auto'>
-                    {renderShoppingCartItems()}
+                <div className='w-full flex flex-col mt-5 h-[50vh] overflow-auto scrollbar'>
+                    <div className='w-full flex flex-col pr-20'>
+                        {renderShoppingCartItems()}
+                    </div>
                 </div>
-                <div className='w-full flex items-center justify-between mt-5'>
-                    <Link to='/' className='font-bold text-sm relative after:content-[] after:w-full after:absolute after:left-0 after:bg-black after:h-[1px] after:-bottom-1'>Kontynuuj zakupy</Link>
-                    <PrimaryButton onClick={()=>{}} title='Dalej' type='button' className='px-10'/>
+                <div className='w-full flex items-center justify-between mt-12'>
+                    <Link to='/' className='font-bold text-sm relative underline-link transition-all'>Kontynuuj zakupy</Link>
+                    <Link to='/order'>
+                        <PrimaryButton onClick={()=>{}} title='Dalej' type='button' className='px-10'/>
+                    </Link>
+                   
                 </div>
             </div>
         </div>

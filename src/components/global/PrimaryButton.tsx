@@ -8,7 +8,9 @@ interface Props {
 }
 
 export const PrimaryButton: React.FC<Props> = ({ title, onClick, type, className }) => {
+    
     return (
-        <button className={` py-2 bg-black text-white rounded-md ${className}`} type={type} onClick={onClick}>{title}</button>
+        <button className={`py-2 bg-black font-medium text-white rounded-md hover:scale-95 transition-all ${className}`} type={type} onClick={onClick}>{title}</button>
     );
+   
 };

@@ -1,3 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@keyframes underlineLinkHover{
+  0%{
+    width: 0;
+    left: 50%;
+  }
+  100%{
+    width: 100%;
+    left: 0;
+  }
+}
+
+@layer utilities {
+    .scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+  
+      .scrollbar::-webkit-scrollbar-track {
+        background:  #e4e4e7;
+        border-radius: 20px;
+      }
+  
+      .scrollbar::-webkit-scrollbar-thumb {
+        background:black;
+        border-radius: 20px;
+      }
+    
+  }
+
+
+  .underline-link:hover::after{
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    background-color: black;
+    height: 1px;
+    width: 100%;
+    animation: underlineLinkHover 0.3s;
+
+  }
+
+  .book-cover::before{
+    background-color: #00000020;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 8px;
+    height: 100%;
+    border-right: 1px solid rgba(#000, 0.6 );
+  }
