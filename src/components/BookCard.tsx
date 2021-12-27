@@ -2,14 +2,16 @@ import { PrimaryButton } from './global/PrimaryButton';
 import React from 'react';
 
 interface Props {
+    id: number,
     title: string,
     author: string,
     pages: number,
-    cover_url: string
+    cover_url: string,
+    onAddToShoppingCart: () => void;
 }
 
 export const BookCard: React.FC<Props> = ({
-    author,cover_url,pages,title
+    author,cover_url,pages,title,onAddToShoppingCart
 }) => {
     return (
         <div className='w-64 h-[700px] flex flex-col m-5'>
@@ -19,7 +21,7 @@ export const BookCard: React.FC<Props> = ({
                 </div>
             </div>
             <div className='flex flex-col w-full'>
-                <PrimaryButton title='Dodaj do koszyka' type='button' className='my-5' onClick={()=>{}}/>
+                <PrimaryButton title='Dodaj do koszyka' type='button' className='my-5' onClick={onAddToShoppingCart}/>
                 <p className='font-bold w-full'>{title}</p>
                 <p className='text-zinc-400 font-medium text-sm mt-2'>{author}</p>
             </div>
