@@ -1,21 +1,24 @@
+import { useDispatch, useSelector } from 'react-redux';
+
 import { BreakLine } from '../components/global/BreakLine';
 import { Link } from 'react-router-dom';
 import { PrimaryButton } from '../components/global/PrimaryButton';
 import React from 'react';
 import { RootState } from '../store/store';
 import { ShoppingCartItem } from '../components/shopping cart/ShoppingCartItem';
-import { useSelector } from 'react-redux';
+import { deleteBookFromShoppingCart } from '../store/shoppingCartSlice';
 
 export const ShoppingCart = () => {
 
-    const shoppingCartItems = useSelector((state: RootState) => {return state.shoppingCart.shoppingCartItems;});
+    const shoppingCartItems = useSelector((state: RootState) => { return state.shoppingCart.shoppingCartItems; });
+    const dispatch = useDispatch();
 
     const renderShoppingCartItems = (): JSX.Element[] | JSX.Element => {
         if (shoppingCartItems) {
             return shoppingCartItems.map(item => {return (
                 <ShoppingCartItem key={item.id}
                     author={item.author}
-                    cover_url={item.cover_url} title={item.title} price={item.price} currency={item.currency}/>
+                    cover_url={item.cover_url} title={item.title} price={item.price} currency={item.currency} onDeleteBookFromShoppingCart={()=> {return dispatch(deleteBookFromShoppingCart(item));}}/>
             );});
         }
         return <></>;

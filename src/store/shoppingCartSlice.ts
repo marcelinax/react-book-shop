@@ -1,5 +1,6 @@
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import Book from '../models/Book';
-import { createSlice } from '@reduxjs/toolkit';
 
 interface ShoppingCartState {
     shoppingCartItems: Book[]
@@ -21,12 +22,20 @@ export const shoppingCartSlice = createSlice({
     name: 'shoppingCart',
     initialState: initialState,
     reducers: {
-        addBookToShoppingCart: (state, action) => {
+        addBookToShoppingCart: (state, action: PayloadAction<Book>) => {
             state.shoppingCartItems = [...state.shoppingCartItems, action.payload];
             saveShoppingCartInSessionStorage(state.shoppingCartItems);
+        },
+        deleteBookFromShoppingCart: (state, action: PayloadAction<Book>) => {
+            const { id } = action.payload;
+            const deleteStartIndex = state.shoppingCartItems.map(item => { return item.id; }).indexOf(id);
+            state.shoppingCartItems.splice(deleteStartIndex, 1);
+            state.shoppingCartItems = [...state.shoppingCartItems];
+            saveShoppingCartInSessionStorage(state.shoppingCartItems);
         }
+        
     }
 });
 
-export const { addBookToShoppingCart } = shoppingCartSlice.actions;
+export const { addBookToShoppingCart,deleteBookFromShoppingCart } = shoppingCartSlice.actions;
 export default shoppingCartSlice.reducer;

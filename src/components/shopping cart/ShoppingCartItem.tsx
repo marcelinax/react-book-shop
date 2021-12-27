@@ -8,12 +8,13 @@ interface Props{
     author: string;
     price: number;
     currency: string;
+    onDeleteBookFromShoppingCart: () => void;
 }
 
-export const ShoppingCartItem: React.FC<Props> = ({author,cover_url,price,title,currency}) => {
+export const ShoppingCartItem: React.FC<Props> = ({author,cover_url,price,title,currency,onDeleteBookFromShoppingCart}) => {
     return (
         <div className='w-full flex py-10'>
-            <div className='bg-center bg-cover bg-no-repeat h-full w-36' style={{ backgroundImage: `url(${cover_url})` }} />
+            <div className='bg-center bg-cover bg-no-repeat h-full w-36 shadow-md' style={{ backgroundImage: `url(${cover_url})` }} />
             <div className='py-16 w-full border-b border-zinc-200 ml-10 flex pr-5'>
                 <div className='flex flex-col flex-1'>
                     <h6 className='font-semibold'>{title}</h6>
@@ -26,7 +27,7 @@ export const ShoppingCartItem: React.FC<Props> = ({author,cover_url,price,title,
                 </div>
                 <div className='flex-1'>{price} {currency}</div>
                 <div className=''>
-                    <BiX/>
+                    <BiX onClick={onDeleteBookFromShoppingCart}/>
                 </div>
             </div>
         </div>
