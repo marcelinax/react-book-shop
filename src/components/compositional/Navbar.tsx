@@ -9,7 +9,9 @@ export const Navbar: React.FC = () => {
                 <Link to='/'>IBooks</Link>
             </div>
             <div className='flex'>
-                <BiCart size={24} className='cursor-pointer'/>
+                <Link to='/shopping-cart'>
+                    <BiCart size={24} className='cursor-pointer'/>
+                </Link>
             </div>
         </div>
     );

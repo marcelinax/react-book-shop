@@ -5,8 +5,16 @@ interface ShoppingCartState {
     shoppingCartItems: Book[]
 }
 
+const saveShoppingCartInSessionStorage = (state: Book[]): void => {
+    sessionStorage.setItem('bookStoreShoppingCart', JSON.stringify(state));
+};
+
+const loadShoppingCartFromSessionStorage = (): Book[] => {
+    return JSON.parse(sessionStorage.getItem('bookStoreShoppingCart') || '[]');
+};
+
 const initialState: ShoppingCartState = {
-    shoppingCartItems: []
+    shoppingCartItems: loadShoppingCartFromSessionStorage()
 };
 
 export const shoppingCartSlice = createSlice({
@@ -15,6 +23,7 @@ export const shoppingCartSlice = createSlice({
     reducers: {
         addBookToShoppingCart: (state, action) => {
             state.shoppingCartItems = [...state.shoppingCartItems, action.payload];
+            saveShoppingCartInSessionStorage(state.shoppingCartItems);
         }
     }
 });
