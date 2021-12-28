@@ -4,7 +4,7 @@ import React from 'react';
 
 export const Navbar: React.FC = () => {
     return (
-        <div className='w-full flex shadow-lg bg-white p-8 items-center justify-between'>
+        <div className='w-full flex shadow-md bg-white p-8 items-center justify-between z-20'>
             <div className='text-2xl font-bold'>
                 <Link to='/'>IBooks</Link>
             </div>

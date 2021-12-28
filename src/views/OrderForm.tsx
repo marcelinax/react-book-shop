@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { BiBookHeart } from 'react-icons/bi';
 import { BreakLine } from './../components/global/BreakLine';
-import { DefaultLayout } from './../layouts/DefaultLayout';
 import { Input } from '../components/order form/Input';
 import { PrimaryButton } from '../components/global/PrimaryButton';
 import { RootState } from '../store/store';
