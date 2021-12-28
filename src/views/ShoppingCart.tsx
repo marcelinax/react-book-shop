@@ -19,7 +19,9 @@ export const ShoppingCart = () => {
     const renderShoppingCartItems = (): JSX.Element[] | JSX.Element => {
         if (shoppingCartItems) {
             return shoppingCartItems.map(item => {return (
-                <ShoppingCartItem key={item.book.id}
+                <ShoppingCartItem
+                    id={item.book.id}
+                    key={item.book.id}
                     author={item.book.author}
                     cover_url={item.book.cover_url}
                     title={item.book.title}
