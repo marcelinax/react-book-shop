@@ -176,6 +176,26 @@ describe('ShoppingCart', () => {
         
         expect(sum.innerHTML).toContain('3');
     });
+    
+    it('should not render any books when shopping cart is empty', async () => {
+
+        store = mockStore({
+            shoppingCart: {
+                shoppingCartItems: []
+            }
+        });
+
+        await act( async () => {return render(
+            <Provider store={store}>
+                <Router location={history.location} navigator={history}>
+                    <ShoppingCart />
+                </Router>
+            </Provider>
+        );
+        });
+        
+        expect(screen.queryByText(/matematyka/i)).toBeNull();
+    });
 
     it('should not let user to checkout when shopping cart is empty', async () => {
 

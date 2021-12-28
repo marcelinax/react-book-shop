@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BiBookHeart } from 'react-icons/bi';
 import { BreakLine } from './../components/global/BreakLine';
 import { ERRORS } from './../Constants';
-import { Input } from '../components/order form/Input';
+import { Input } from '../components/orderForm/Input';
 import { PrimaryButton } from '../components/global/PrimaryButton';
 import { RootState } from '../store/store';
 import { UnderlineLink } from './../components/global/UnderlineLink';

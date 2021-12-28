@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { PrimaryButton } from '../components/global/PrimaryButton';
 import React from 'react';
 import { RootState } from '../store/store';
-import { ShoppingCartItem } from '../components/shopping cart/ShoppingCartItem';
+import { ShoppingCartItem } from '../components/shoppingCart/ShoppingCartItem';
 import { UnderlineLink } from '../components/global/UnderlineLink';
 import { getCalculatedItemsAmount } from '../utils/getCalculatedItemsAmount';
 import { getCalculatedSumPrice } from '../utils/getCalculatedSumPrice';
@@ -16,25 +16,22 @@ export const ShoppingCart = () => {
     const shoppingCartItems = useSelector((state: RootState) => { return state.shoppingCart.shoppingCartItems; });
     const dispatch = useDispatch();
 
-    const renderShoppingCartItems = (): JSX.Element[] | JSX.Element => {
-        if (shoppingCartItems) {
-            return shoppingCartItems.map(item => {return (
-                <ShoppingCartItem
-                    id={item.book.id}
-                    key={item.book.id}
-                    author={item.book.author}
-                    cover_url={item.book.cover_url}
-                    title={item.book.title}
-                    price={item.book.price}
-                    currency={item.book.currency}
-                    onDeleteBookFromShoppingCart={() => { return dispatch(deleteBookFromShoppingCart(item.book)); }}
-                    amount={item.amount}
-                    onDecreaseAmount={() => { dispatch(decreaseBookAmountInShoppingCart(item.book));} }
-                    onIncreaseAmount={() => { dispatch(increaseBookAmountInShoppingCart(item.book));} }
-                />
-            );});
-        }
-        return <></>;
+    const renderShoppingCartItems = (): JSX.Element[] => {
+        return shoppingCartItems.map(item => {return (
+            <ShoppingCartItem
+                id={item.book.id}
+                key={item.book.id}
+                author={item.book.author}
+                cover_url={item.book.cover_url}
+                title={item.book.title}
+                price={item.book.price}
+                currency={item.book.currency}
+                onDeleteBookFromShoppingCart={() => { return dispatch(deleteBookFromShoppingCart(item.book)); }}
+                amount={item.amount}
+                onDecreaseAmount={() => { dispatch(decreaseBookAmountInShoppingCart(item.book));} }
+                onIncreaseAmount={() => { dispatch(increaseBookAmountInShoppingCart(item.book));} }
+            />
+        );});
     };
 
     return (
