@@ -38,7 +38,9 @@ export const Homepage: React.FC = () => {
                 'search[author]': searchFormData.author,
                 page: page
             }
-        }).then(res => {return setBooks(res.data.data);});
+        }).then(res => { return setBooks(res.data.data); }).catch(err => {
+            console.error(err);
+        });
     };
 
     const searchBooks = (): void => {
