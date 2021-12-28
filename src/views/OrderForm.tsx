@@ -73,7 +73,7 @@ export const OrderForm: React.FC = () => {
         return value.length === 0;
     };
     const checkZipCodeInput = (value: string): boolean => {
-        const zipCodeRegex = /\d{2}-\d{3}/;
+        const zipCodeRegex = /^\d{2}-\d{3}$/;
         return !zipCodeRegex.test(value);
     };
 
