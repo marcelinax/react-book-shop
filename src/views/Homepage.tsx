@@ -5,6 +5,9 @@ import Book from '../models/Book';
 import { BookCard } from '../components/BookCard';
 import { BookFilter } from '../components/filter/BookFilter';
 import { Navbar } from './../components/compositional/Navbar';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import { addBookToShoppingCart } from '../store/shoppingCartSlice';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -13,18 +16,23 @@ import { useDispatch } from 'react-redux';
 export const Homepage: React.FC = () => {
 
     const [books, setBooks] = useState<Book[]>([]);
+    const [page, setPage] = useState(1);
     const [searchFormData, setSearchFormData] = useState({
         title: '',
         author: ''
     });
     const dispatch = useDispatch();
 
+    const handlePageChange = (e : React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    };
 
     const getAllBooks = (): void => {
         axios.get('http://localhost:3001/api/book', {
             params: {
                 'search[title]': searchFormData.title,
-                'search[author]': searchFormData.author
+                'search[author]': searchFormData.author,
+                page: page
             }
         }).then(res => {return setBooks(res.data.data);});
     };
@@ -47,14 +55,13 @@ export const Homepage: React.FC = () => {
 
     useEffect(() => {
         getAllBooks();
-    }, []);
+    }, [page]);
     
     return (
         <div className='min-w-screen min-h-screen flex flex-col bg-zinc-100'>
             <Navbar />
             <BookFilter searchFormData={searchFormData} setSearchFormData={ setSearchFormData } onSearchSubmit={getAllBooks}/>
-            <div className='container flex flex-col mt-20 mx-auto'>
-
+            <div className='container flex flex-col mt-20 mb-20 mx-auto'>
                 <div className='px-14 mb-10'>
                     <div className='flex w-full'>
                         <BiBookOpen size={40} className='opacity-30 mr-5 mt-2'/>
@@ -70,6 +77,11 @@ export const Homepage: React.FC = () => {
                 </div>
                 <div className='w-full flex flex-wrap'>
                     {renderBooks()}
+                </div>
+                <div className='w-full flex justify-center mt-5'>
+                    <Stack spacing={2} >
+                        <Pagination count={2} shape="rounded" page={page} onChange={handlePageChange} />
+                    </Stack>
                 </div>
             </div>
         </div>

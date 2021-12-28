@@ -65,8 +65,8 @@ export const OrderForm: React.FC = () => {
                             Podsumowanie Twojego zamówienia
                     </h3>
 
-                    <p>Kupujesz {getCalculatedItemsAmount(shoppingCartItems)} art.</p>
-                    <p>Do zapłaty {getCalculatedSumPrice(shoppingCartItems)} PLN</p>
+                    <p>Kupujesz <strong>{getCalculatedItemsAmount(shoppingCartItems)}</strong> art.</p>
+                    <p>Do zapłaty <strong>{getCalculatedSumPrice(shoppingCartItems)}</strong> PLN</p>
 
                     <h3 className='text-xl font-semibold mb-3 mt-10'>
                         Adres dostawy
@@ -83,7 +83,7 @@ export const OrderForm: React.FC = () => {
 
                     </div>
                     <p className='mt-2 text-sm'>
-                            Klikając powyżyszy przycisk akceptujesz nasz regulamin
+                        Klikając powyżyszy przycisk akceptujesz nasz regulamin
                     </p>
                 </div>
             </form>
