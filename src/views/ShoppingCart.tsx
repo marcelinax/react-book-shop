@@ -7,6 +7,7 @@ import { PrimaryButton } from '../components/global/PrimaryButton';
 import React from 'react';
 import { RootState } from '../store/store';
 import { ShoppingCartItem } from '../components/shopping cart/ShoppingCartItem';
+import { UnderlineLink } from '../components/global/UnderlineLink';
 import { getCalculatedItemsAmount } from '../utils/getCalculatedItemsAmount';
 import { getCalculatedSumPrice } from '../utils/getCalculatedSumPrice';
 
@@ -51,9 +52,9 @@ export const ShoppingCart = () => {
                     </div>
                 </div>
                 <div className='w-full flex items-center justify-between mt-12'>
-                    <Link to='/' className='font-bold text-sm relative underline-link transition-all'>Kontynuuj zakupy</Link>
+                    <UnderlineLink to='/' title='Kontynuuj zakupy'/>
                     <Link to='/order'>
-                        <PrimaryButton onClick={()=>{}} title='Dalej' type='button' className='px-10'/>
+                        <PrimaryButton onClick={()=>{}} title='Dalej' type='button' disabled={shoppingCartItems.length ===0} className='px-10'/>
                     </Link>
                    
                 </div>
