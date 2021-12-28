@@ -77,10 +77,10 @@ export const OrderForm: React.FC = () => {
         return !zipCodeRegex.test(value);
     };
 
-    const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>): void => {
+    const onSubmit = async (e: React.SyntheticEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         if (checkFormInputs()) {
-            axios.post('http://localhost:3001/api/order', {
+            await axios.post('http://localhost:3001/api/order', {
                 ...formData,
                 order: getParsedOrder()
             });
@@ -90,9 +90,6 @@ export const OrderForm: React.FC = () => {
     };
 
     const filterErrors = (value: string): string => {
-        console.log(value);
-        console.log(errors);
-        console.log(errors.filter(err => {return err.includes(value);})[0]);
         return errors.filter(err => {return err===value;})[0];
     };
 
@@ -134,9 +131,6 @@ export const OrderForm: React.FC = () => {
                     <div className='w-full flex mt-6 lg:mt-10'>
                         <PrimaryButton onClick={() => { }} type='submit' title='Zamawiam i płacę' className='w-full' />
                     </div>
-                    {/* <p className='mt-2 text-[10px] xl:text-sm'>
-                        Klikając powyżyszy przycisk akceptujesz nasz regulamin
-                    </p> */}
                 </div>
             </form>
         </div>

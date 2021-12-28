@@ -22,9 +22,6 @@ export const Homepage: React.FC = () => {
     });
     const dispatch = useDispatch();
 
-
-   
-
     useEffect(() => {
         getAllBooks();
         window.scrollTo(0,0);
@@ -34,8 +31,8 @@ export const Homepage: React.FC = () => {
         setPage(value);
     };
 
-    const getAllBooks = (): void => {
-        axios.get('http://localhost:3001/api/book', {
+    const getAllBooks = async (): Promise<void> => {
+        await axios.get('http://localhost:3001/api/book', {
             params: {
                 'search[title]': searchFormData.title,
                 'search[author]': searchFormData.author,
@@ -64,9 +61,6 @@ export const Homepage: React.FC = () => {
        
     };
 
-
-  
-    
     return (
         <div className='min-w-screen min-h-screen flex flex-col bg-zinc-100'>
             <Navbar />
@@ -91,7 +85,6 @@ export const Homepage: React.FC = () => {
                             <h1 className='font-medium text-2xl mr-4'>Nie znaleziono książek</h1>
                             <BiSad size={24}/>
                         </div>
-                       
                     )}
                 </div>
                 {books.length > 0 && (
