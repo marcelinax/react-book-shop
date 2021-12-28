@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { BiBookHeart } from 'react-icons/bi';
 import { BreakLine } from './../components/global/BreakLine';
@@ -8,9 +9,9 @@ import { PrimaryButton } from '../components/global/PrimaryButton';
 import { RootState } from '../store/store';
 import { UnderlineLink } from './../components/global/UnderlineLink';
 import axios from 'axios';
+import { clearShoppingCart } from '../store/shoppingCartSlice';
 import { getCalculatedItemsAmount } from '../utils/getCalculatedItemsAmount';
 import { getCalculatedSumPrice } from '../utils/getCalculatedSumPrice';
-import { useSelector } from 'react-redux';
 
 export const OrderForm: React.FC = () => {
 
@@ -22,6 +23,7 @@ export const OrderForm: React.FC = () => {
     });
     const [errors, setErrors] = useState<string[]>([]);
     const shoppingCartItems = useSelector((state: RootState) => { return state.shoppingCart.shoppingCartItems; });
+    const dispatch = useDispatch();
 
     const getParsedOrder = (): {id: number, quantity: number}[] => {
         return shoppingCartItems.map(item => {return {
@@ -83,6 +85,7 @@ export const OrderForm: React.FC = () => {
                 order: getParsedOrder()
             });
             setErrors([]);
+            dispatch(clearShoppingCart());
         }
     };
 
@@ -94,31 +97,31 @@ export const OrderForm: React.FC = () => {
     };
 
     return (
-        <div className='container flex mx-auto h-screen'>
+        <div className='w-full md:container flex mx-auto h-screen'>
             <form className='w-full m-auto' onSubmit={onSubmit}>
-                <div className='w-1/2 shadow-[0_0_15px_rgba(0,0,0,0.15)] bg-white mx-auto p-14 rounded-lg'>
+                <div className='w-full h-screen md:h-auto lg:w-1/2 shadow-[0_0_15px_rgba(0,0,0,0.15)] bg-white mx-auto p-6 lg:p-8 2xl:p-14 md:rounded-lg'>
                     <UnderlineLink to='/shopping-cart' title='Wróć do koszyka'/>
-                    <div className='flex w-full justify-center mb-10'>
+                    <div className='flex w-full justify-center mt-4 lg:mt-0 mb-10'>
                         <BiBookHeart size={50} />
                     </div>
 
-                    <h3 className='text-2xl font-semibold mb-3 text-center'>
+                    <h3 className='text-xl lg:text-2xl font-semibold mb-3 text-center'>
                            Twoje Zamówienie IBooks
                     </h3>
-                    <p className='text-center'>
+                    <p className='text-sm lg:text-base text-center'>
                            Dziękujemy za zainteresowanie naszymi produktami
                     </p>
 
                     <BreakLine className='mt-5' />
 
-                    <h3 className='text-xl font-semibold mb-3 mt-10'>
+                    <h3 className='text-md lg:text-xl font-semibold mb-3 mt-10'>
                             Podsumowanie Twojego zamówienia
                     </h3>
 
-                    <p>Kupujesz <strong>{getCalculatedItemsAmount(shoppingCartItems)}</strong> art.</p>
-                    <p>Do zapłaty <strong>{getCalculatedSumPrice(shoppingCartItems)}</strong> PLN</p>
+                    <p className='text-sm lg:text-base'>Kupujesz <strong>{getCalculatedItemsAmount(shoppingCartItems)}</strong> art.</p>
+                    <p className='text-sm lg:text-base'>Do zapłaty <strong>{getCalculatedSumPrice(shoppingCartItems)}</strong> PLN</p>
 
-                    <h3 className='text-xl font-semibold mb-3 mt-10'>
+                    <h3 className='text-md lg:text-lg font-semibold mb-3 mt-10'>
                         Adres dostawy
                     </h3>
 
@@ -128,13 +131,12 @@ export const OrderForm: React.FC = () => {
                         <Input title='Miejscowość' className='mr-10' id='city' onChange={onChange} value={formData.city} error={filterErrors(ERRORS.CITY_CANNOT_BE_EMPTY)}/>
                         <Input title='Kod pocztowy' id='zip_code' onChange={onChange} value={formData.zip_code} error={filterErrors(ERRORS.INVALID_ZIP_CODE_FORMAT)}/>
                     </div>
-                    <div className='w-full flex mt-10'>
+                    <div className='w-full flex mt-6 lg:mt-10'>
                         <PrimaryButton onClick={() => { }} type='submit' title='Zamawiam i płacę' className='w-full' />
-
                     </div>
-                    <p className='mt-2 text-sm'>
+                    {/* <p className='mt-2 text-[10px] xl:text-sm'>
                         Klikając powyżyszy przycisk akceptujesz nasz regulamin
-                    </p>
+                    </p> */}
                 </div>
             </form>
         </div>

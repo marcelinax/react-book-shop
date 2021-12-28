@@ -36,18 +36,18 @@ export const ShoppingCart = () => {
     };
 
     return (
-        <div className='w-full h-screen p-24'>
-            <div className='mx-auto h-full flex-col bg-zinc-100 p-10 shadow-xl rounded-3xl'>
-                <div className='w-full flex justify-between items-center'>
-                    <div className='flex items-center'>
-                        <h1 className='font-semibold text-4xl mr-8'>Koszyk</h1>
+        <div className='w-full h-screen md:p-14 xl:p-24'>
+            <div className='mx-auto h-full flex-col bg-white md:bg-zinc-100 p-4 md:p-10 xl:shadow-xl md:rounded-3xl'>
+                <div className='w-full flex flex-col md:flex-row md:justify-between md:items-center'>
+                    <div className='flex md:items-center flex-col md:flex-row'>
+                        <h1 className='font-semibold text-4xl md:mr-8'>Koszyk</h1>
                         <p className='font-medium text-sm mt-1'>{getCalculatedItemsAmount(shoppingCartItems)} art.</p>
                     </div>
-                    <div className='font-semibold'>Suma: {getCalculatedSumPrice(shoppingCartItems)} PLN</div>
+                    <div className='font-semibold mt-6 md:mt-0'>Suma: {getCalculatedSumPrice(shoppingCartItems)} PLN</div>
                 </div>
                 <BreakLine className='mt-10' />
-                <div className='w-full flex flex-col mt-5 h-[50vh] overflow-auto scrollbar'>
-                    <div className='w-full flex flex-col pr-20'>
+                <div className='w-full flex flex-col mt-5 h-[60vh] md:h-[50vh] overflow-auto scrollbar'>
+                    <div className='w-full flex flex-col md:pr-8 lg:pr-20'>
                         {renderShoppingCartItems()}
                     </div>
                 </div>

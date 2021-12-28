@@ -7,7 +7,6 @@ import { BookFilter } from '../components/filter/BookFilter';
 import { Navbar } from './../components/compositional/Navbar';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import { addBookToShoppingCart } from '../store/shoppingCartSlice';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -22,6 +21,14 @@ export const Homepage: React.FC = () => {
         author: ''
     });
     const dispatch = useDispatch();
+
+
+   
+
+    useEffect(() => {
+        getAllBooks();
+        window.scrollTo(0,0);
+    }, [page]);
 
     const handlePageChange = (e : React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
@@ -58,9 +65,7 @@ export const Homepage: React.FC = () => {
     };
 
 
-    useEffect(() => {
-        getAllBooks();
-    }, [page]);
+  
     
     return (
         <div className='min-w-screen min-h-screen flex flex-col bg-zinc-100'>

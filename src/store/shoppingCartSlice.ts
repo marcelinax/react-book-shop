@@ -54,9 +54,13 @@ export const shoppingCartSlice = createSlice({
             state.shoppingCartItems.splice(bookIndex, 1);
             state.shoppingCartItems = [...state.shoppingCartItems];
             saveShoppingCartInSessionStorage(state.shoppingCartItems);
+        },
+        clearShoppingCart: (state) => {
+            state.shoppingCartItems = [];
+            saveShoppingCartInSessionStorage(state.shoppingCartItems);
         }
     }
 });
 
-export const { addBookToShoppingCart, deleteBookFromShoppingCart, increaseBookAmountInShoppingCart, decreaseBookAmountInShoppingCart } = shoppingCartSlice.actions;
+export const { addBookToShoppingCart, deleteBookFromShoppingCart, increaseBookAmountInShoppingCart, decreaseBookAmountInShoppingCart, clearShoppingCart } = shoppingCartSlice.actions;
 export default shoppingCartSlice.reducer;

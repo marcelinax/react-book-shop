@@ -39,11 +39,11 @@ export const BookFilter: React.FC<Props> = ({ searchFormData, setSearchFormData,
                         </p>
                     </div>
                 </div>
-                <div className='w-full flex'>
-                    <div className='w-full'>
+                <div className='w-full flex-col flex lg:flex-row'>
+                    <div className='w-full mb-5 lg:mb-0'>
                         <BookFilterItem id='title' value={searchFormData.title} onChange={onChange} placeholder='Tytuł' />
                     </div>
-                    <div className='w-full px-8'>
+                    <div className='w-full lg:px-8 mb-5 lg:mb-0'>
                         <BookFilterItem id='author' value={searchFormData.author} onChange={onChange} placeholder='Autor' />
                     </div>
                     <PrimaryButton title='Szukaj' type='button' onClick={onSearchSubmit} className='whitespace-nowrap px-8' />
