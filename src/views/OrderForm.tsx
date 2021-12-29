@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { BiBookHeart } from 'react-icons/bi';
 import { BreakLine } from './../components/global/BreakLine';
+import { ConfirmOrderModal } from './../components/ConfirmOrderModal';
 import { ERRORS } from './../Constants';
 import { Input } from '../components/orderForm/Input';
 import { PrimaryButton } from '../components/global/PrimaryButton';
@@ -24,6 +25,7 @@ export const OrderForm: React.FC = () => {
     const [errors, setErrors] = useState<string[]>([]);
     const shoppingCartItems = useSelector((state: RootState) => { return state.shoppingCart.shoppingCartItems; });
     const dispatch = useDispatch();
+    const [orderFinished, setOrderFinished] = useState(false);
 
     const getParsedOrder = (): {id: number, quantity: number}[] => {
         return shoppingCartItems.map(item => {return {
@@ -86,7 +88,10 @@ export const OrderForm: React.FC = () => {
             });
             setErrors([]);
             dispatch(clearShoppingCart());
+            setOrderFinished(true);
         }
+        else setOrderFinished(false);
+        
     };
 
     const filterErrors = (value: string): string => {
@@ -95,6 +100,7 @@ export const OrderForm: React.FC = () => {
 
     return (
         <div className='w-full md:container flex mx-auto h-screen'>
+            {orderFinished && <ConfirmOrderModal/>}
             <form className='w-full m-auto' onSubmit={onSubmit}>
                 <div className='w-full h-screen md:h-auto lg:w-1/2 shadow-[0_0_15px_rgba(0,0,0,0.15)] bg-white mx-auto p-6 lg:p-8 2xl:p-14 md:rounded-lg'>
                     <UnderlineLink to='/shopping-cart' title='Wróć do koszyka'/>
@@ -121,7 +127,6 @@ export const OrderForm: React.FC = () => {
                     <h3 className='text-md lg:text-lg font-semibold mb-3 mt-10'>
                         Adres dostawy
                     </h3>
-
                     <Input title='Imię' id='first_name' onChange={onChange} value={formData.first_name} error={filterErrors(ERRORS.NAME_MUST_BE_AT_LEAST_4_CHARACTERS_LONG)}/>
                     <Input title='Nazwisko' id='last_name' onChange={onChange} value={formData.last_name} error={filterErrors(ERRORS.LAST_NAME_MUST_BE_AT_LEAST_5_CHARACTERS_LONG)}/>
                     <div className='w-full flex'>
