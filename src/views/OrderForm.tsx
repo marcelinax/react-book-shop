@@ -11,6 +11,7 @@ import { RootState } from '../store/store';
 import { UnderlineLink } from './../components/global/UnderlineLink';
 import axios from 'axios';
 import { clearShoppingCart } from '../store/shoppingCartSlice';
+import { config } from './../config/Config';
 import { getCalculatedItemsAmount } from '../utils/getCalculatedItemsAmount';
 import { getCalculatedSumPrice } from '../utils/getCalculatedSumPrice';
 import { locales } from './../Locales';
@@ -83,7 +84,7 @@ export const OrderForm: React.FC = () => {
     const onSubmit = async (e: React.SyntheticEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         if (checkFormInputs()) {
-            await axios.post('http://localhost:3001/api/order', {
+            await axios.post(config.apiUrl + 'api/order', {
                 ...formData,
                 order: getParsedOrder()
             });

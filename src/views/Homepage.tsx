@@ -9,6 +9,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { addBookToShoppingCart } from '../store/shoppingCartSlice';
 import axios from 'axios';
+import { config } from './../config/Config';
 import { locales } from './../Locales';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -33,7 +34,7 @@ export const Homepage: React.FC = () => {
     };
 
     const getAllBooks = async (): Promise<void> => {
-        await axios.get('http://localhost:3001/api/book', {
+        await axios.get(config.apiUrl + 'api/book', {
             params: {
                 'search[title]': searchFormData.title,
                 'search[author]': searchFormData.author,
