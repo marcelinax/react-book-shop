@@ -1,5 +1,6 @@
 import { BiX } from 'react-icons/bi';
 import React from 'react';
+import { locales } from './../Locales';
 import { useNavigate } from 'react-router-dom';
 
 export const ConfirmOrderModal: React.FC = () => {
@@ -18,7 +19,7 @@ export const ConfirmOrderModal: React.FC = () => {
                     <img src='/assets/on-the-way.svg' className='w-full'/>
                 </div>
                 <div className='w-full mt-6'>
-                    <p className='text-xs md:text-base font-medium text-center'>Przyjęliśmy Twoje zamówienie! Niedługo będziemy u Ciebie!</p>
+                    <p className='text-xs md:text-base font-medium text-center'>{locales.order_accepted}</p>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ import { BiSearchAlt2 } from 'react-icons/bi';
 import { BookFilterItem } from './BookFilterItem';
 import { PrimaryButton } from '../global/PrimaryButton';
 import React from 'react';
+import { locales } from './../../Locales';
 
 interface Props {
     searchFormData: {
@@ -32,10 +33,10 @@ export const BookFilter: React.FC<Props> = ({ searchFormData, setSearchFormData,
                     <BiSearchAlt2 size={40} className='opacity-30 mr-5 mt-2'/>
                     <div>
                         <h1 className='text-lg font-semibold mb-1'>
-                            Wyszukiwarka
+                            {locales.search_engine}
                         </h1>
                         <p className='text-sm mb-5'>
-                            Znajdź książkę po tytule lub autorze
+                            {locales.find_book_by_author_or_title}
                         </p>
                     </div>
                 </div>
@@ -46,7 +47,7 @@ export const BookFilter: React.FC<Props> = ({ searchFormData, setSearchFormData,
                     <div className='w-full lg:px-8 mb-5 lg:mb-0'>
                         <BookFilterItem id='author' value={searchFormData.author} onChange={onChange} placeholder='Autor' />
                     </div>
-                    <PrimaryButton title='Szukaj' type='button' onClick={onSearchSubmit} className='whitespace-nowrap px-8' />
+                    <PrimaryButton title={locales.search} type='button' onClick={onSearchSubmit} className='whitespace-nowrap px-8' />
                 </div>
             </div>
         </div>

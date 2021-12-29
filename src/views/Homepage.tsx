@@ -9,6 +9,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { addBookToShoppingCart } from '../store/shoppingCartSlice';
 import axios from 'axios';
+import { locales } from './../Locales';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 
@@ -50,7 +51,7 @@ export const Homepage: React.FC = () => {
 
     const addProductToShoppingCart = (book:Book): void => {
         dispatch(addBookToShoppingCart(book));
-        toast.success('Książka została dodana do koszyka!');
+        toast.success(locales.book_has_been_added_to_shopping_cart);
         
     };
 
@@ -73,10 +74,10 @@ export const Homepage: React.FC = () => {
                         <BiBookOpen size={40} className='opacity-30 mr-5 mt-2'/>
                         <div>
                             <h1 className='text-lg font-semibold mb-1'>
-                                Lista książek
+                                {locales.book_list}
                             </h1>
                             <p className='text-sm mb-5'>
-                                Twoje wyniki wyszukiwania
+                                {locales.your_search_results}
                             </p>
                         </div>
                     </div>
@@ -84,7 +85,7 @@ export const Homepage: React.FC = () => {
                 <div className='w-full flex flex-wrap'>
                     {books.length > 0 ? renderBooks() : (
                         <div className='w-full flex mx-auto justify-center items-center'>
-                            <h1 className='font-medium text-2xl mr-4'>Nie znaleziono książek</h1>
+                            <h1 className='font-medium text-2xl mr-4'>{locales.books_not_found}</h1>
                             <BiSad size={24}/>
                         </div>
                     )}

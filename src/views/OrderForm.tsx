@@ -13,6 +13,7 @@ import axios from 'axios';
 import { clearShoppingCart } from '../store/shoppingCartSlice';
 import { getCalculatedItemsAmount } from '../utils/getCalculatedItemsAmount';
 import { getCalculatedSumPrice } from '../utils/getCalculatedSumPrice';
+import { locales } from './../Locales';
 
 export const OrderForm: React.FC = () => {
 
@@ -103,38 +104,38 @@ export const OrderForm: React.FC = () => {
             {orderFinished && <ConfirmOrderModal/>}
             <form className='w-full m-auto' onSubmit={onSubmit}>
                 <div className='w-full h-screen md:h-auto lg:w-1/2 shadow-[0_0_15px_rgba(0,0,0,0.15)] bg-white mx-auto p-6 lg:p-8 2xl:p-14 md:rounded-lg'>
-                    <UnderlineLink to='/shopping-cart' title='Wróć do koszyka'/>
+                    <UnderlineLink to='/shopping-cart' title={locales.back_to_shopping_cart}/>
                     <div className='flex w-full justify-center mt-4 lg:mt-0 mb-10'>
                         <BiBookHeart size={50} />
                     </div>
 
                     <h3 className='text-xl lg:text-2xl font-semibold mb-3 text-center'>
-                           Twoje Zamówienie IBooks
+                        {locales.your_ibooks_order}
                     </h3>
                     <p className='text-sm lg:text-base text-center'>
-                           Dziękujemy za zainteresowanie naszymi produktami
+                        {locales.thanks_for_order_our_products}
                     </p>
 
                     <BreakLine className='mt-5' />
 
                     <h3 className='text-md lg:text-xl font-semibold mb-3 mt-10'>
-                            Podsumowanie Twojego zamówienia
+                        {locales.summary_order}
                     </h3>
 
-                    <p className='text-sm lg:text-base'>Kupujesz <strong>{getCalculatedItemsAmount(shoppingCartItems)}</strong> art.</p>
-                    <p className='text-sm lg:text-base'>Do zapłaty <strong>{getCalculatedSumPrice(shoppingCartItems)}</strong> PLN</p>
+                    <p className='text-sm lg:text-base'>{locales.buy}<strong>{getCalculatedItemsAmount(shoppingCartItems)}</strong> {locales.articles}</p>
+                    <p className='text-sm lg:text-base'>{locales.to_pay}<strong>{getCalculatedSumPrice(shoppingCartItems)}</strong> {locales.pln}</p>
 
                     <h3 className='text-md lg:text-lg font-semibold mb-3 mt-10'>
-                        Adres dostawy
+                        {locales.delivery_address}
                     </h3>
-                    <Input title='Imię' id='first_name' onChange={onChange} value={formData.first_name} error={filterErrors(ERRORS.NAME_MUST_BE_AT_LEAST_4_CHARACTERS_LONG)}/>
-                    <Input title='Nazwisko' id='last_name' onChange={onChange} value={formData.last_name} error={filterErrors(ERRORS.LAST_NAME_MUST_BE_AT_LEAST_5_CHARACTERS_LONG)}/>
+                    <Input title={locales.name} id='first_name' onChange={onChange} value={formData.first_name} error={filterErrors(ERRORS.NAME_MUST_BE_AT_LEAST_4_CHARACTERS_LONG)}/>
+                    <Input title={locales.surname} id='last_name' onChange={onChange} value={formData.last_name} error={filterErrors(ERRORS.LAST_NAME_MUST_BE_AT_LEAST_5_CHARACTERS_LONG)}/>
                     <div className='w-full flex'>
-                        <Input title='Miejscowość' className='mr-10' id='city' onChange={onChange} value={formData.city} error={filterErrors(ERRORS.CITY_CANNOT_BE_EMPTY)}/>
-                        <Input title='Kod pocztowy' id='zip_code' onChange={onChange} value={formData.zip_code} error={filterErrors(ERRORS.INVALID_ZIP_CODE_FORMAT)}/>
+                        <Input title={locales.city} className='mr-10' id='city' onChange={onChange} value={formData.city} error={filterErrors(ERRORS.CITY_CANNOT_BE_EMPTY)}/>
+                        <Input title={locales.zip_code} id='zip_code' onChange={onChange} value={formData.zip_code} error={filterErrors(ERRORS.INVALID_ZIP_CODE_FORMAT)}/>
                     </div>
                     <div className='w-full flex mt-6 lg:mt-10'>
-                        <PrimaryButton onClick={() => { }} type='submit' title='Zamawiam i płacę' className='w-full' />
+                        <PrimaryButton onClick={() => { }} type='submit' title={locales.order_and_pay} className='w-full' />
                     </div>
                 </div>
             </form>
